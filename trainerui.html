@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>GESTR</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+		<!-- CSS-->
+		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<link rel="stylesheet" href="css/trainer.css" />
+	</head>
+
+	<body>
+		<!--CREATE GESTURES-->
+		<div id="main">
+			<div id="gesture-creation-area">
+				<form id="new-gesture-form">
+					<input type="text" id="new-gesture-name" value="Insert name" maxlength="15" autocomplete="off"/>
+				</form>
+			</div>
+
+			<!-- DISPLAY CURRENT GESTURES-->
+			<ul id="existing-gestures"></ul>
+			<div id="output-text"></div>
+			<div id="render-area"></div>
+
+			<!-- GO BACK-->
+			<input id="finished" type="button" value="Finished" class="button"
+			onclick="location.href='index.html'"/>
+
+			<div id="version-tag">Created with LeapTrainer UI v0.03</div>
+		</div>
+		<div id="overlay-shade"></div>
+
+		<div id="overlay">
+			<div>
+				<p>To use the <b id="exporting-gesture-name"></b> gesture, copy the text in the text area below and import it into a <b>LeapTrainer.Controller</b> using the <b>fromJSON</b> function:</p>
+
+				<p id="sample-import-code">
+					var trainer = new LeapTrainer.Controller();
+					<br/>
+					trainer.fromJSON('<i id="exporting-gesture-sample-text"></i>');
+				</p>
+			</div>
+			<div>
+				<textarea id="export-text"></textarea>
+
+				<input type="button" id="retrain-gesture" value="Retrain" class="button"/>
+				<input type="button" id="close-overlay" value="Close" class="button"/>
+			</div>
+		</div>
+
+		<div id="webgl-warning"><b>WARNING:</b> Your browser does not support WebGL. Rendering quality is limited and gesture trails are disabled.</div>
+	</body>
+
+	<!--JS IMPORTS-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="trainerjs/jquery.touchwipe.min.js"></script>
+	<script src="http://js.leapmotion.com/leap-0.6.3.js"></script>
+
+	<!-- TRAINER LIBRARIES-->
+	<script src="trainerjs/three.min.js"></script>
+	<script src="trainerjs/detector.js"></script>
+	<script src="trainerjs/tween.js"></script>
+	<script src="trainerjs/orbit-controls.js"></script>
+	<script src="trainerjs/high-resolution-recording.js"></script>
+	<script src="trainerjs/lib/brain.js"></script>
+	<script src="trainerjs/neural-networks.js"></script>
+	<script src="trainerjs/cross-correlation.js"></script>
+	<script src="trainerjs/leaptrainer.js"></script>
+	<script src="trainerjs/leaptrainer-ui.js"></script>
+</html>

@@ -1,0 +1,50 @@
+$fontPrim: 'Lato', sans-serif;
+$back: #303030;
+
+body {
+  font-family:$fontPrim;
+  background:$back;
+}
+
+h1 {
+  padding:5%;
+  font-size:40px;
+  text-transform:uppercase;
+  color:#fff;
+  transition: all ease 0.4s;
+}
+
+#main {
+  text-align:center;
+}
+
+.btn {
+  max-height:100px;
+  opacity:0;
+  display: inline-block;
+  padding: 1% 3%;
+  margin:3% auto;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: $fontPrim;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  outline:none;
+  cursor: pointer;
+}
+
+#gest {
+  margin-left:2%;
+  margin-right:2%;
+  border:4px solid #68BEF7;
+  border-radius:50px;
+  background:#119AF5;
+  color:#fff;
+  transition: all ease 0.4s;
+}
+
+#gest:hover {
+  background:#fff;
+  border-color:#B6DFFA;
+  color:#68BEF7;
+}
