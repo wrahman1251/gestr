@@ -635,8 +635,7 @@ $(document).ready(function ($) {
 		 * Since a new gesture is being created, we need to add an entry in the gesture list
 		 */
 		var gesture = $('<li' + (trainingSkipped ? '' : ' class="selected"') +'><div class="progress"><span class="gesture-name">' + gestureName +
-						'</span><img class="arrow" src="./trainer-ui/images/training-arrow.png" /></div>' +
-						'<img class="export-arrow" src="./trainer-ui/images/export-arrow.png" />' +
+						'</span></div>' +
 						'<span class="label">&nbsp;</span></li>');
 
 		gesture.click(function() { openExportOverlay(gesture, gestureName); }); //Clicking on the gesture will open the export/retrain overlay
