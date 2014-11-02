@@ -49,7 +49,8 @@
  *
  * ---------------------------
  */
-
+var newGestureName;
+var controller;
 $(document).ready(function ($) {
 
 	/*
@@ -61,24 +62,24 @@ $(document).ready(function ($) {
 	/*
 	 * First we create the leap controller - since the training UI will respond to event coming directly from the device.
 	 */
-	var controller = new Leap.Controller({
+	controller = new Leap.Controller({
 		enableGestures: true
 	});
 
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
 	 */
-	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 7});
+	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 3});
 
 	/*
 	 * We get the DOM crawling done now during setup, so it's not consuming cycles at runtime.
 	 */
+	newGestureName		= $('#new-gesture-name');
 	var win					= $(window),
 		body				= $("body"),
 		gestureCreationArea	= $('#gesture-creation-area'),
 		creationForm		= $('#new-gesture-form'),
 		existingGestureList = $("#existing-gestures"),
-		newGestureName		= $('#new-gesture-name'),
 		renderArea 			= $('#render-area'),
 		main				= $('#main'),
 		//overlayArea			= $('#overlay'),
@@ -312,90 +313,6 @@ $(document).ready(function ($) {
 
 //	openConfiguration.change(function()  { openConfigGesture  = registerUIGesture(openConfigGesture, openConfiguration.val(), openOptions); });
 	//closeConfiguration.change(function() { closeConfigGesture = registerUIGesture(closeConfigGesture, closeConfiguration.val(), closeOptions); });
-
-	/*
-	 * ------------------------------------------------------------------------------------------
-	 *  3. Setting up the overlay
-	 * ------------------------------------------------------------------------------------------
-	 */
-
-	/**
-	 * Opens the overlay.
-	 *
-	 * The overlay is opened and closed by just adding an 'overlay-open' class to the body tag.  The selected gesture
-	 * in the gesture list is modified to be full width and display its arrow pointing at the overlay.  The content of
-	 * the overlay is set as appropriate for the selected gesture.
-	 */
-	/*function openExportOverlay(listItem, gestureName) {
-
-		if (overlayOpen || training) { return; } // If a gesture is currently in training, the overlay can't be opened
-
-		trainer.pause(); // While the overlay is open, the training controller is inactive.
-
-		main.css({position: 'inherit'});
-
-		var bar = progressBars[gestureName];
-
-		bar.css({width: '100%', background: blue});
-
-		setGestureLabel(gestureName, '');
-
-		existingGestureList.find('li').removeClass('selected');
-
-	    listItem.addClass('selected');
-
-	    exportingName.html(gestureName);
-
-	    var json = trainer.toJSON(gestureName); // The JSON is extracted from the controller
-
-	    exportingSampleText.html((json.length > 60 ? json.substring(0, 60) : json) + '...');
-
-	    exportText.html(json);
-
-	    body.addClass('overlay-open'); // This is what makes the overlay and the shade visible
-
-		overlayOpen = true;
-
-	    exportText.css({height: overlayArea.height() - (overlayArea.children()[0].clientHeight + 150)});
-	};
-
-	/**
-	 * Closes the overlay. The selected gesture to returned to as it was before the overlay opened.
-	 */
-	/*function closeExportOverlay() {
-
-		if (!overlayOpen) { return; }
-
-		trainer.resume();
-
-		main.css({position: 'fixed'});
-
-		unselectAllGestures(true);
-
-		existingGestureList.find('li').removeClass('selected');
-
-		body.removeClass('overlay-open'); // This is what makes the overlay and shade invisible again.
-
-		overlayOpen = false;
-	};*/
-
-    /*
-     * When the retrain button is clicked the overlay closes and the leaptrainer retrain() function is called for the selected gesture
-     */
-    /*retrainButton.click(function() { closeExportOverlay(); trainer.retrain(exportingName.html()); });
-
-    closeOverlayButton.click(closeExportOverlay); // Clicking on the close button closes the overlay
-
-    overlayShade.on('click', function (e) { if (body.hasClass('overlay-open')) { closeExportOverlay(); } }); // Clicking anywhere on the overlay shade closes the overlay
-
-    $(document).on('keydown', function (e) { if (e.keyCode === 27 ) { closeExportOverlay(); }}); // Pressing the ESC key closes the overlay
-		*/
-    /*
-     * Clicking on the export textarea causes all the text contained in it to be selected.  This way one needs only click on the textarea and
-     * then CTRL+C (or whatever copy is on your system) to extract the JSON.
-     */
-    //exportText.click(function() { this.focus(); this.select(); });
-
 
 	/*
 	 * ------------------------------------------------------------------------------------------
@@ -757,26 +674,31 @@ $(document).ready(function ($) {
 
 		//setAllGestureScales(allHits, gestureName);
 		setOutputText('<span>Now playing: ' + gestureName + '</span>');
-		var params = { allowScriptAccess: "always"};
+		newGestureName = gestureName;
+		/*var params = { allowScriptAccess: "always"};
 		var atts = { id: "myytplayer" };
 		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
 												"ytapiplayer", "425", "356", "8", null, null, params, atts);
-<<<<<<< HEAD
-		var playr = $("#myytplayer");
-=======
+*/
+		//var playr = $("#myytplayer");
 		//var getName = $("#myytplayer").loadVideoById(......);
 
 		// Inject YouTube API script
-		var tag = document.createElement('script');
+		/*var tag = document.createElement('script');
+		tag.setAttribute('id', "playr");
 		tag.src = "//www.youtube.com/player_api";
-		var firstScriptTag = document.getElementsByTagName('script')[0];
+		var firstScriptTag = document.getElementById('playr')[0];
 		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-		setOutputText('<span style="font-weight: bold">Now playing: ' + gestureName + '</span>');
->>>>>>> 5d299413fe014a3faa2398fb956395963dbe8d24
+*/
+			//document.getElementsByTagName('iframe')[0].setAttribute('src', "http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1");
+	 		var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	});
 
 
+/*
 	function onYouTubePlayerAPIReady() {
   		// create the global player from the specific iframe (#video)
   		var player = $("#myytplayer");
@@ -789,19 +711,18 @@ $(document).ready(function ($) {
   		});
   }
 
-<<<<<<< HEAD
   function onPlayerReady(event){
 		controller.on('swipe', function(swipe){
 			console.log("thisworks");
 			$("#myytplayer").playVideo();
 		});
-=======
+
   		controller.on('swipe', function(){
   			$("#myytplayer").playVideo();
   			console.log("thisworks")
   		});
->>>>>>> 5d299413fe014a3faa2398fb956395963dbe8d24
 	}
+	*/
 
 	/*
 	 * When an unknown gesture is recorded we unselect all gestures in the list, update all gesture progress bars with the list of hit
@@ -1193,5 +1114,46 @@ $(document).ready(function ($) {
 	 */
 	controller.connect();
 });
+
+var player;
+function onYouTubeIframeAPIReady() {
+	player = new YT.Player('player', {
+		height: '390',
+		width: '640',
+		videoId: newGestureName,
+		events: {
+			'onReady': onPlayerReady
+		}
+	});
+	console.log("apiready");
+}
+
+function onPlayerReady(event) {
+	alert("hi");
+
+	/*controller.on('swipe', function(gesture){
+		console.log("swiped");
+		//$("#player").playVideo();
+		event.target.playVideo();
+	});*/
+
+	var controllerOptions = {enableGestures: true};
+
+	Leap.loop(controllerOptions, function(frame) {
+		console.log("r");
+	  if (frame.gestures.length > 0) {
+	    for (var i = 0; i < frame.gestures.length; i++) {
+	      var gesture = frame.gestures[i];
+
+	      if (gesture.type == "swipe") {
+					console.log("swiped");
+					event.target.playVideo();
+	       }
+	     }
+	  }
+
+	})
+
+}
 
 
