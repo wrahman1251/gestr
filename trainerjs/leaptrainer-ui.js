@@ -1095,11 +1095,13 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
 		height: '390',
 		width: '640',
+		shufflePlaylist: false,
 		//videoId: newGestureName,
 		playerVars:
 		{
 			listType: 'playlist',
-			list: lst_id
+			list: lst_id,
+			loop: 1
 		},
 		events: {
 			'onReady': onPlayerReady
