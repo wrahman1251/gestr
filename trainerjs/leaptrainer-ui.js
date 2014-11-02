@@ -50,6 +50,7 @@
  * ---------------------------
  */
 var newGestureName;
+var lst_id;
 var controller;
 $(document).ready(function ($) {
 
@@ -119,7 +120,7 @@ $(document).ready(function ($) {
 		/*
 		 * The WebGL variables, materials, and geometry
 		 */
-		material 			= new THREE.MeshBasicMaterial({color: white }),		// The normal material used to display hands and fingers
+		material 			= new THREE.MeshBasicMaterial({color: white }),		// The normal material used to dislsty hands and fingers
 		recordingMaterial 	= new THREE.MeshBasicMaterial({color: yellow }),	// The material used on hands and fingers during recording
 		palmGeometry 		= new THREE.CubeGeometry(60, 10, 60),				// The geometry of a palm
 		fingerGeometry 		= webGl ? new THREE.SphereGeometry(5, 20, 10) : new THREE.TorusGeometry(1, 5, 5, 5), // The geometry of a finger (simplified if using a canvas renderer)
@@ -425,10 +426,10 @@ $(document).ready(function ($) {
 		 * The gesture name is upper-cased for uniformity (TODO: This shouldn't really be a requirement).
 		 */
 		var name = name.split('v=')[1];
-		var ampersandPosition = name.indexOf('&');
-		if(ampersandPosition != -1) {
-  		name = name.substring(0, ampersandPosition);
-		}
+		//var ampersandPosition = name.indexOf('&');
+		//if(ampersandPosition != -1) {
+  		//name = name.substring(0, ampersandPosition);
+		//}
 		trainer.create(name);
 
 		return false;
@@ -674,7 +675,29 @@ $(document).ready(function ($) {
 
 		//setAllGestureScales(allHits, gestureName);
 		setOutputText('<span>Now playing: ' + gestureName + '</span>');
+<<<<<<< HEAD
 		newGestureName = gestureName;
+=======
+		var lst = gestureName.split("&list=");
+		lst_id = lst[1];
+		newGestureName = lst[0];
+		/*var params = { allowScriptAccess: "always"};
+		var atts = { id: "myytplayer" };
+		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
+												"ytapiplayer", "425", "356", "8", null, null, params, atts);
+*/
+		//var playr = $("#myytplayer");
+		//var getName = $("#myytplayer").loadVideoById(......);
+
+		// Inject YouTube API script
+		/*var tag = document.createElement('script');
+		tag.setAttribute('id', "playr");
+		tag.src = "//www.youtube.com/player_api";
+		var firstScriptTag = document.getElementById('playr')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+*/
+			//document.getElementsByTagName('iframe')[0].setAttribute('src', "http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1");
+>>>>>>> 8f9e0725e12c53c99af7f89b9cf94bbde0bf7ac2
 	 		var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -1075,7 +1098,12 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
 		height: '390',
 		width: '640',
-		videoId: newGestureName,
+		//videoId: newGestureName,
+		playerVars:
+		{
+			listType: 'playlist',
+			list: lst_id
+		},
 		events: {
 			'onReady': onPlayerReady
 		}
@@ -1100,13 +1128,28 @@ function onPlayerReady(event) {
 	    for (var i = 0; i < frame.gestures.length; i++) {
 	      var gesture = frame.gestures[i];
 
-	      if (gesture.type == "swipe") {
-					console.log("swiped");
-					event.target.playVideo();
+	      if (gesture.type == "screenTap") {
+					console.log("tap");
+					event.target.pauseVideo();
 	       }
+	      if (gesture.type == "circle") {
+	      			console.log("circled");
+	      			event.target.playVideo();
+	      }
+	      if (gesture.type == "swipe") {
+	      			console.log("swiped");
+	      			if(gesture.direction[0] > 0){
+                  swipeDirection = "right";
+                  event.target.nextVideo();
+              		} 
+              		else {
+                  swipeDirection = "left";
+                  event.target.previousVideo();
+              		}
+
 	     }
 	  }
-
+}
 	})
 
 }
