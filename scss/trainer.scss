@@ -73,6 +73,7 @@ body {
   height: 50px;
   z-index: 9999;
   text-align:center;
+  margin-bottom:10px;
 }
 
 // CREATE FIELD
@@ -110,8 +111,9 @@ body {
 }
 
 #player {
-  width:100%;
-  //padding-top:10%;
+  margin-top:2%;
+  margin-left:25%;
+  margin-bottom:2%;
 }
 
 #existing-gestures 	{
@@ -136,6 +138,7 @@ body {
    //background: rgba(255,255,255,0.3);
    color: #9AD7EE;
    margin-bottom: 0px;
+   text-align:center;
 }
 
 #existing-gestures li .gesture-name {

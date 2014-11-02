@@ -70,7 +70,7 @@ $(document).ready(function ($) {
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
 	 */
-	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 3});
+	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 7});
 
 	/*
 	 * We get the DOM crawling done now during setup, so it's not consuming cycles at runtime.
@@ -344,7 +344,7 @@ $(document).ready(function ($) {
 		var renderHeight 	= windowHeight;
 
 		var handW = (2 * windowWidth) / 3;
-		var handH = windowHeight / 3;
+		var handH = (2 *windowHeight) / 3;
 
 		renderArea.css({width: windowWidth, height: handH});
 
@@ -621,7 +621,7 @@ $(document).ready(function ($) {
 
 		var trainingGestureCount = trainer.trainingGestures;
 
-		setOutputText('Perform the ' + gestureName + ' gesture or pose ' + (trainingGestureCount > 1 ? trainingGestureCount + ' times' : ''));
+		setOutputText('Perform the gesture or pose ' + (trainingGestureCount > 1 ? trainingGestureCount + ' times' : ''));
 
 		//gestureEntries[gestureName].css({background: 'transparent'});
 
@@ -644,7 +644,7 @@ $(document).ready(function ($) {
 
 		//setGestureScale(gestureName, 100 - ((100/trainingGestures) * remaining), yellow, yellow);
 
-		setOutputText('Perform the ' + gestureName + ' gesture ' + (remaining == 1 ? ' once more' : remaining + ' more times'));
+		setOutputText('Perform the gesture ' + (remaining == 1 ? ' once more' : remaining + ' more times'));
 	});
 
 	/*
@@ -657,7 +657,7 @@ $(document).ready(function ($) {
 
 		renderGesture();
 
-		setOutputText(gestureName + (isPose ? ' pose' : ' gesture') + ' learned!');
+		setOutputText('Gesture learned!');
 
 		setGestureLabel(gestureName, 'Learned');
 
@@ -674,10 +674,8 @@ $(document).ready(function ($) {
 		unselectAllGestures(false);
 
 		//setAllGestureScales(allHits, gestureName);
-		setOutputText('<span>Now playing: ' + gestureName + '</span>');
-<<<<<<< HEAD
+		setOutputText('<span>Now playing</span>');
 		newGestureName = gestureName;
-=======
 		var lst = gestureName.split("&list=");
 		lst_id = lst[1];
 		newGestureName = lst[0];
@@ -697,7 +695,6 @@ $(document).ready(function ($) {
 		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 */
 			//document.getElementsByTagName('iframe')[0].setAttribute('src', "http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1");
->>>>>>> 8f9e0725e12c53c99af7f89b9cf94bbde0bf7ac2
 	 		var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -1112,16 +1109,8 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-	alert("hi");
-
-	/*controller.on('swipe', function(gesture){
-		console.log("swiped");
-		//$("#player").playVideo();
-		event.target.playVideo();
-	});*/
-
 	var controllerOptions = {enableGestures: true};
-
+	$("#render-area").css('display', 'none');
 	Leap.loop(controllerOptions, function(frame) {
 		console.log("r");
 	  if (frame.gestures.length > 0) {
@@ -1141,7 +1130,7 @@ function onPlayerReady(event) {
 	      			if(gesture.direction[0] > 0){
                   swipeDirection = "right";
                   event.target.nextVideo();
-              		} 
+              		}
               		else {
                   swipeDirection = "left";
                   event.target.previousVideo();
