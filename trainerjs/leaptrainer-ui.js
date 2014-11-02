@@ -68,7 +68,7 @@ $(document).ready(function ($) {
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
 	 */
-	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 5});
+	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 7});
 
 	/*
 	 * We get the DOM crawling done now during setup, so it's not consuming cycles at runtime.
@@ -426,10 +426,11 @@ $(document).ready(function ($) {
 		var renderHeight 	= windowHeight;
 
 		var handW= (2 * windowWidth) / 3;
+		var handH= (2 * windowHeight) / 3;
 
-		renderArea.css({width: handW, height: windowHeight});
+		renderArea.css({width: windowWidth, height: handH});
 
-		renderer.setSize(handW, windowHeight);
+		renderer.setSize(windowWidth, handH);
 
 		/*
 		 * When window drops below a given width , the output text is no longer centered on the screen - because if it is, it's likely
@@ -760,7 +761,7 @@ $(document).ready(function ($) {
 		var atts = { id: "myytplayer" };
 		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
 												"ytapiplayer", "425", "356", "8", null, null, params, atts);
-		$("#myytplayer").YouTubePopup({youtubeId: gestureName}).click();
+		var playr = $("#myytplayer");
 	});
 
 
@@ -773,15 +774,13 @@ $(document).ready(function ($) {
       			'onReady': onPlayerReady
     		}
   		});
-  	}
+  }
 
-  	function onPlayerReady(event){
-
-
-  		controller.on('swipe', function(){
-  			$("#myytplayer").playVideo();
-  			console.log("thisworks")
-  		});
+  function onPlayerReady(event){
+		controller.on('swipe', function(swipe){
+			console.log("thisworks");
+			$("#myytplayer").playVideo();
+		});
 	}
 
 	/*
