@@ -61,7 +61,9 @@ $(document).ready(function ($) {
 	/*
 	 * First we create the leap controller - since the training UI will respond to event coming directly from the device.
 	 */
-	var controller = new Leap.Controller();
+	var controller = new Leap.Controller({
+		enableGestures: true
+	});
 
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
@@ -752,11 +754,32 @@ $(document).ready(function ($) {
 
 		var params = { allowScriptAccess: "always"};
 		var atts = { id: "myytplayer" };
-		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1",
+		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
 												"ytapiplayer", "425", "356", "8", null, null, params, atts);
 		//var getName = $("#myytplayer").loadVideoById(......);
 		setOutputText('<span style="font-weight: bold">Now playing: ' + gestureName + '</span>');
 	});
+
+
+	function onYouTubePlayerAPIReady() {
+  		// create the global player from the specific iframe (#video)
+  		var player = $("#myytplayer");
+  		player = new YT.Player('video', {
+    		events: {
+      			// call this function when player is ready to use
+      			'onReady': onPlayerReady
+    		}
+  		});
+  	}
+
+  	function onPlayerReady(event){
+
+
+  		controller.on('swipe', function(){
+  			$("#myytplayer").playVideo();
+  			console.log("thisworks")
+  		});
+	}
 
 	/*
 	 * When an unknown gesture is recorded we unselect all gestures in the list, update all gesture progress bars with the list of hit
