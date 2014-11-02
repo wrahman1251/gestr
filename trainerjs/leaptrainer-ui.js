@@ -49,6 +49,7 @@
  *
  * ---------------------------
  */
+
 $(document).ready(function ($) {
 
 	/*
@@ -65,7 +66,7 @@ $(document).ready(function ($) {
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
 	 */
-	var trainer = new LeapTrainer.Controller({controller: controller});
+	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 5});
 
 	/*
 	 * We get the DOM crawling done now during setup, so it's not consuming cycles at runtime.
@@ -96,7 +97,6 @@ $(document).ready(function ($) {
 		closeConfiguration 	= $('#close-configuration'),
 		wegGlWarning		= $('#webgl-warning'),
 		versionTag			= $('#version-tag'),
-		forkMe				= $('#fork-me'),
 
 		/*
 		 * We set up the WebGL renderer - switching to a canvas renderer if needed
@@ -158,9 +158,6 @@ $(document).ready(function ($) {
 	 */
 	controls.noPan = true;
 
-	function getGestures() {
-		return gestureEntries;
-	}
 	/*
 	 * ------------------------------------------------------------------------------------------
 	 *  2. Setting up the options panel
@@ -424,11 +421,14 @@ $(document).ready(function ($) {
 		/*
 		 * The three.js area and renderer are resized to fit the page
 		 */
-		var renderHeight 	= windowHeight - 5;
+		var renderHeight 	= windowHeight;
 
-		renderArea.css({width: windowWidth, height: renderHeight});
+		var handW= windowWidth/2;
+		var handH = renderHeight/2
 
-		renderer.setSize(windowWidth, renderHeight);
+		renderArea.css({width: handW, height: windowHeight});
+
+		renderer.setSize(handW, windowHeight);
 
 		/*
 		 * When window drops below a given width , the output text is no longer centered on the screen - because if it is, it's likely
@@ -493,7 +493,6 @@ $(document).ready(function ($) {
 	creationForm.submit(function() {
 
 		var name = newGestureName.val().trim();
-
 		/*
 		 * If the input name is empty, the default on the box, or already exists in the list of existing gestures, we just do nothing and return.
 		 *
@@ -506,7 +505,7 @@ $(document).ready(function ($) {
 		 *
 		 * The gesture name is upper-cased for uniformity (TODO: This shouldn't really be a requirement).
 		 */
-		trainer.create(name.toUpperCase());
+		trainer.create(name);
 
 		return false;
 	});
@@ -596,7 +595,6 @@ $(document).ready(function ($) {
 		gestureCreationArea.css({display: 'none'});
 		optionsButton	   .css({display: 'none'});
 		versionTag		   .css({display: 'none'});
-		forkMe			   .css({display: 'none'});
 
 		outputText.css({background: 'transparent'});
 
@@ -613,7 +611,6 @@ $(document).ready(function ($) {
 		gestureCreationArea.css({display: ''});
 		optionsButton	   .css({display: ''});
 		versionTag		   .css({display: ''});
-		forkMe			   .css({display: ''});
 
 		outputText.css({background: ''});
 
@@ -715,7 +712,6 @@ $(document).ready(function ($) {
 	trainer.on('training-gesture-saved', function(gestureName, trainingSet) {
 
 		var trainingGestures = trainer.trainingGestures;
-		console.log(trainingSet);
 
 		renderGesture();
 
@@ -741,8 +737,8 @@ $(document).ready(function ($) {
 		setGestureLabel(gestureName, 'Learned');
 
 		setGestureScale(gestureName, 100, green, green);
-		console.log(gestureEntries);
 	});
+
 
 	/*
 	 * When a known gesture is recognised we select it in the gesture list, render it, update the gesture list entry progress bar to
@@ -754,13 +750,12 @@ $(document).ready(function ($) {
 
 		setAllGestureScales(allHits, gestureName);
 
-		renderGesture();
-
-		var hitPercentage = Math.min(parseInt(100 * hit), 100);
-
-		setGestureScale(gestureName, hitPercentage, green, green);
-
-		setOutputText('<span style="font-weight: bold">' + gestureName + '</span> : ' + hitPercentage + '% MATCH');
+		var params = { allowScriptAccess: "always"};
+		var atts = { id: "myytplayer" };
+		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1",
+												"ytapiplayer", "425", "356", "8", null, null, params, atts);
+		//var getName = $("#myytplayer").loadVideoById(......);
+		setOutputText('<span style="font-weight: bold">Now playing: ' + gestureName + '</span>');
 	});
 
 	/*
@@ -1142,7 +1137,6 @@ $(document).ready(function ($) {
 		}
 	}
 
-
 	/*
 	 * ------------------------------------------------------------------------------------------
 	 *  10. And finally...
@@ -1154,3 +1148,5 @@ $(document).ready(function ($) {
 	 */
 	controller.connect();
 });
+
+

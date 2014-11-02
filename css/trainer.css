@@ -67,19 +67,17 @@ body {
   padding: 0 5%;
   outline: none;
   font-size: 14px;
-  font-weight: bold;
   color: #34495E;
-  text-transform: uppercase;
   height: 50px;
   background: #FFFFFF;
   border: 1px solid #fff;
   border-radius: 10px;
 }
 
-/* line 80, ../scss/trainer.scss */
+/* line 78, ../scss/trainer.scss */
 #output-text {
   font-size: 24px;
-  width: 60%;
+  width: 80%;
   position: absolute;
   height: 50px;
   line-height: 50px;
@@ -87,7 +85,7 @@ body {
   text-align: center;
 }
 
-/* line 91, ../scss/trainer.scss */
+/* line 89, ../scss/trainer.scss */
 #version-tag {
   position: fixed;
   font-size: 13px;
@@ -100,7 +98,21 @@ body {
   margin-right: 3%;
 }
 
-/* line 103, ../scss/trainer.scss */
+/* line 102, ../scss/trainer.scss */
+#render-area {
+  background: transparent;
+  float: left;
+  width: 40%;
+}
+
+/* line 108, ../scss/trainer.scss */
+#ytapiplayer {
+  float: right;
+  width: 50%;
+  margin-top: 10%;
+}
+
+/* line 115, ../scss/trainer.scss */
 #existing-gestures {
   list-style-type: none;
   margin-left: -40px;
@@ -112,10 +124,9 @@ body {
   font-size: 16px;
   font-weight: bold;
   color: #FFF;
-  text-transform: uppercase;
 }
 
-/* line 117, ../scss/trainer.scss */
+/* line 128, ../scss/trainer.scss */
 #existing-gestures li {
   position: relative;
   overflow: visible;
@@ -127,7 +138,7 @@ body {
   margin-bottom: 0px;
 }
 
-/* line 128, ../scss/trainer.scss */
+/* line 139, ../scss/trainer.scss */
 #existing-gestures li .gesture-name {
   padding-left: 37px;
   float: left;
@@ -135,14 +146,14 @@ body {
   position: absolute;
 }
 
-/* line 135, ../scss/trainer.scss */
+/* line 146, ../scss/trainer.scss */
 #existing-gestures li .label {
   font-style: italic;
   right: 0px;
   position: absolute;
 }
 
-/* line 141, ../scss/trainer.scss */
+/* line 152, ../scss/trainer.scss */
 #existing-gestures li .progress {
   float: left;
   overflow: visible;
@@ -150,29 +161,29 @@ body {
   height: 50px;
 }
 
-/* line 148, ../scss/trainer.scss */
+/* line 159, ../scss/trainer.scss */
 .overlay-open #existing-gestures li {
   display: none;
 }
 
-/* line 152, ../scss/trainer.scss */
+/* line 163, ../scss/trainer.scss */
 .overlay-open #existing-gestures li.selected {
   background: #AFDFF1;
   width: 88%;
   display: block;
 }
 
-/* line 158, ../scss/trainer.scss */
+/* line 169, ../scss/trainer.scss */
 .overlay-open #existing-gestures li.selected .training-label {
   display: none;
 }
 
-/* line 162, ../scss/trainer.scss */
+/* line 173, ../scss/trainer.scss */
 .overlay-open #existing-gestures li.selected .export-gesture {
   display: block;
 }
 
-/* line 166, ../scss/trainer.scss */
+/* line 177, ../scss/trainer.scss */
 #overlay-shade {
   display: none;
   top: 0px;
@@ -184,7 +195,7 @@ body {
   opacity: 0.7;
 }
 
-/* line 177, ../scss/trainer.scss */
+/* line 188, ../scss/trainer.scss */
 #overlay {
   display: none;
   width: 910px;
@@ -198,7 +209,7 @@ body {
   left: 380px;
 }
 
-/* line 190, ../scss/trainer.scss */
+/* line 201, ../scss/trainer.scss */
 #overlay textarea {
   width: 99%;
   height: 510px;
@@ -208,14 +219,14 @@ body {
   outline: none;
 }
 
-/* line 199, ../scss/trainer.scss */
+/* line 210, ../scss/trainer.scss */
 #overlay div {
   padding: 0px 20px;
   font-size: 20px;
   line-height: 40px;
 }
 
-/* line 206, ../scss/trainer.scss */
+/* line 217, ../scss/trainer.scss */
 #sample-import-code {
   margin: 30px 0px;
   padding: 20px;
@@ -223,39 +234,29 @@ body {
   background: #F3FBFC;
 }
 
-/* line 213, ../scss/trainer.scss */
-#exporting-gesture-name {
-  text-transform: uppercase;
-}
-
-/* line 217, ../scss/trainer.scss */
+/* line 227, ../scss/trainer.scss */
 #close-overlay, #retrain-gesture {
   padding: 0px 25px;
   margin-top: 20px;
   background: #88CFEB;
 }
 
-/* line 223, ../scss/trainer.scss */
+/* line 233, ../scss/trainer.scss */
 #close-overlay {
   float: right;
 }
 
-/* line 227, ../scss/trainer.scss */
+/* line 237, ../scss/trainer.scss */
 .overlay-open #overlay-shade {
   display: block;
 }
 
-/* line 231, ../scss/trainer.scss */
+/* line 241, ../scss/trainer.scss */
 .overlay-open #overlay {
   display: block;
 }
 
-/* line 236, ../scss/trainer.scss */
-#render-area {
-  background: transparent;
-}
-
-/* line 240, ../scss/trainer.scss */
+/* line 246, ../scss/trainer.scss */
 #webgl-warning {
   display: none;
   position: absolute;
@@ -269,12 +270,7 @@ body {
   font-size: 13px;
 }
 
-/* line 257, ../scss/trainer.scss */
-#open-configuration, #close-configuration {
-  text-transform: uppercase;
-}
-
-/* line 262, ../scss/trainer.scss */
+/* line 268, ../scss/trainer.scss */
 #options-update-confirmation {
   display: none;
   width: 100%;
