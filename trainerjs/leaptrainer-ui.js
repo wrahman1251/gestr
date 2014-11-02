@@ -342,8 +342,8 @@ $(document).ready(function ($) {
 		 */
 		var renderHeight 	= windowHeight;
 
-		var handW= (2 * windowWidth) / 3;
-		var handH= (2 * windowHeight) / 3;
+		var handW = (2 * windowWidth) / 3;
+		var handH = windowHeight / 3;
 
 		renderArea.css({width: windowWidth, height: handH});
 
@@ -675,54 +675,11 @@ $(document).ready(function ($) {
 		//setAllGestureScales(allHits, gestureName);
 		setOutputText('<span>Now playing: ' + gestureName + '</span>');
 		newGestureName = gestureName;
-		/*var params = { allowScriptAccess: "always"};
-		var atts = { id: "myytplayer" };
-		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
-												"ytapiplayer", "425", "356", "8", null, null, params, atts);
-*/
-		//var playr = $("#myytplayer");
-		//var getName = $("#myytplayer").loadVideoById(......);
-
-		// Inject YouTube API script
-		/*var tag = document.createElement('script');
-		tag.setAttribute('id', "playr");
-		tag.src = "//www.youtube.com/player_api";
-		var firstScriptTag = document.getElementById('playr')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-*/
-			//document.getElementsByTagName('iframe')[0].setAttribute('src', "http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1");
 	 		var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	});
-
-
-/*
-	function onYouTubePlayerAPIReady() {
-  		// create the global player from the specific iframe (#video)
-  		var player = $("#myytplayer");
-  		console.log("youtube api called successfully");
-  		player = new YT.Player('video', {
-    		events: {
-      			// call this function when player is ready to use
-      			'onReady': onPlayerReady
-    		}
-  		});
-  }
-
-  function onPlayerReady(event){
-		controller.on('swipe', function(swipe){
-			console.log("thisworks");
-			$("#myytplayer").playVideo();
-		});
-
-  		controller.on('swipe', function(){
-  			$("#myytplayer").playVideo();
-  			console.log("thisworks")
-  		});
-	}
-	*/
 
 	/*
 	 * When an unknown gesture is recorded we unselect all gestures in the list, update all gesture progress bars with the list of hit
@@ -734,8 +691,6 @@ $(document).ready(function ($) {
 		unselectAllGestures(false);
 
 		setOutputText();
-
-		setAllGestureScales(allHits);
 
 		clearGesture();
 	});

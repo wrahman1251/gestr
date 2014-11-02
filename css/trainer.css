@@ -110,9 +110,8 @@ body {
 }
 
 /* line 112, ../scss/trainer.scss */
-#ytapiplayer {
-  float: right;
-  width: 30%;
+#player {
+  width: 100%;
 }
 
 /* line 117, ../scss/trainer.scss */
