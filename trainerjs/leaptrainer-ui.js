@@ -757,6 +757,13 @@ $(document).ready(function ($) {
 		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&html5=1&playerapiid=ytplayer&version=3&autoplay=1",
 												"ytapiplayer", "425", "356", "8", null, null, params, atts);
 		//var getName = $("#myytplayer").loadVideoById(......);
+
+		// Inject YouTube API script
+		var tag = document.createElement('script');
+		tag.src = "//www.youtube.com/player_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 		setOutputText('<span style="font-weight: bold">Now playing: ' + gestureName + '</span>');
 	});
 
@@ -764,6 +771,7 @@ $(document).ready(function ($) {
 	function onYouTubePlayerAPIReady() {
   		// create the global player from the specific iframe (#video)
   		var player = $("#myytplayer");
+  		console.log("youtube api called successfully");
   		player = new YT.Player('video', {
     		events: {
       			// call this function when player is ready to use
@@ -773,7 +781,6 @@ $(document).ready(function ($) {
   	}
 
   	function onPlayerReady(event){
-
 
   		controller.on('swipe', function(){
   			$("#myytplayer").playVideo();
