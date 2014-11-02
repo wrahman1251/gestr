@@ -79,16 +79,16 @@ $(document).ready(function ($) {
 		newGestureName		= $('#new-gesture-name'),
 		renderArea 			= $('#render-area'),
 		main				= $('#main'),
-		overlayArea			= $('#overlay'),
-		overlayShade		= $('#overlay-shade'),
-		exportingName		= $('#exporting-gesture-name'),
-		exportingSampleText = $('#exporting-gesture-sample-text'),
-		exportText 			= $('#export-text'),
+		//overlayArea			= $('#overlay'),
+		//overlayShade		= $('#overlay-shade'),
+		//exportingName		= $('#exporting-gesture-name'),
+		//exportingSampleText = $('#exporting-gesture-sample-text'),
+		//exportText 			= $('#export-text'),
 		retrainButton 		= $('#retrain-gesture'),
-		closeOverlayButton 	= $('#close-overlay'),
+		//closeOverlayButton 	= $('#close-overlay'),
 		outputText			= $('#output-text'),
-		optionsButton		= $('#options-button'),
-		optionsArea  		= $('#options'),
+		//optionsButton		= $('#options-button'),
+		//optionsArea  		= $('#options'),
 		recordingTriggers 	= $('#recording-triggers'),
 		recordingStrategies = $('#recording-strategies'),
 		recogStrategies 	= $('#recognition-strategies'),
@@ -141,8 +141,8 @@ $(document).ready(function ($) {
 		progressBars 		= {},	// The colored progress bar backgrounds in the list items - also jQuery-wrapped, needed for setting widths during recognition
 		gestureLabels 		= {},	// The area for text at the right of gesture list entries - displays 'LEARNED' when training completes
 		gestureArrows 		= {},	// The right-pointing arrow heads associated with each gesture in the gesture list
-		optionsOpen 		= false,// A toggle indicating if the options panel is currently open
-		overlayOpen 		= false,// A toggle indicating if the overlay is currently open
+		//optionsOpen 		= false,// A toggle indicating if the options panel is currently open
+		//overlayOpen 		= false,// A toggle indicating if the overlay is currently open
 		training 			= false,// A toggle indicating if the trainer is currently training a gesture - used to disable opening of the overlay during training
 		data;
 
@@ -168,7 +168,7 @@ $(document).ready(function ($) {
 	 * Opening and closing of the options area is just a jQuery animate on the left style of the main area - pushing it out of view to
 	 * the right and revealing the options.
 	 */
-	function openOptions (evt)  {
+	/*function openOptions (evt)  {
 
 		if (optionsOpen) { return; }
 
@@ -179,12 +179,12 @@ $(document).ready(function ($) {
 		recordingTriggers.focus();
 
 		main.animate({left: -340});
-	}
+	}*/
 
 	/*
 	 *
 	 */
-	function closeOptions (evt) {
+	/*function closeOptions (evt) {
 
 		if (!optionsOpen) { return; }
 
@@ -193,34 +193,34 @@ $(document).ready(function ($) {
 		optionsOpen = false;
 
 		main.animate({left: 0});
-	}
+	}*/
 
 	/*
 	 * The options panel open/close functions are bound to the options button
 	 */
-	optionsButton.click(function(evt) { optionsOpen ? closeOptions(evt) : openOptions(evt); });
+	//optionsButton.click(function(evt) { optionsOpen ? closeOptions(evt) : openOptions(evt); });
 
 	/*
 	 * A touch swipe handler is set on the window, opening the options on swipe left, closing them on swipe right.
 	 */
-	win.touchwipe({ wipeRight: closeOptions, wipeLeft: openOptions, preventDefaultEvents: false });
+	//win.touchwipe({ wipeRight: closeOptions, wipeLeft: openOptions, preventDefaultEvents: false });
 
 	/*
 	 * When the main area is clicked it will close the option area if it's open
 	 */
-	main.click(closeOptions);
+	//main.click(closeOptions);
 
     /*
      * The option inputs are populated with the available trainer implementations and event listeners bound to them
      */
-	function optionsUpdated() { updateConfirmation.show(); setTimeout(function() { updateConfirmation.hide(); }, 3000); }
+	/*function optionsUpdated() { updateConfirmation.show(); setTimeout(function() { updateConfirmation.hide(); }, 3000); }
 
 	var impl, t = [], s = [], cs = [];
 
 	/*
 	 * This function adds an option to a select list
 	 */
-    function setupOptionList(rt, t, list, implName) {
+  /*  function setupOptionList(rt, t, list, implName) {
 
     	if (rt) { rt = rt(); if (t.indexOf(rt) == -1) { t.push(rt); list.append('<option value="' + implName + '">' + rt + '</option>'); }}
     }
@@ -228,14 +228,14 @@ $(document).ready(function ($) {
     /*
      * We populate the recording triggers, recording strategies, and recognition strategies option lists.
      */
-    for (var implName in LeapTrainer) {
+    /*for (var implName in LeapTrainer) {
 
     	impl = LeapTrainer[implName].prototype;
 
     	setupOptionList(impl.getRecordingTriggerStrategy, t, recordingTriggers, implName);
     	setupOptionList(impl.getFrameRecordingStrategy, s, recordingStrategies, implName);
     	setupOptionList(impl.getRecognitionStrategy, cs, recogStrategies, implName);
-    }
+    }*/
 
     /*
      * This function merges a function from one controller class into another
@@ -260,7 +260,7 @@ $(document).ready(function ($) {
     		}
     	}
 
-    	optionsUpdated();
+    //	optionsUpdated();
     }
 
     /*
@@ -278,7 +278,7 @@ $(document).ready(function ($) {
 	 *
 	 * TODO: Still.. Some input validation would be useful here - or in some cases, more restrictive inputs - sliders for the numbers, etc.
 	 */
-    function setupOptionInput(binding) {
+    /*function setupOptionInput(binding) {
 
     	var input 	= $('#' + binding);
 
@@ -304,12 +304,12 @@ $(document).ready(function ($) {
     /*
      * Now we set up the interface configuration drop-downs, which can be used to bind gestures to interface operations
      */
-    var openConfigGesture = null, closeConfigGesture = null;
+  //  var openConfigGesture = null, closeConfigGesture = null;
 
-    function registerUIGesture (oldGesture, newGesture, func) { trainer.off(oldGesture, func); trainer.on(newGesture, func); optionsUpdated(); return newGesture; }
+    //function registerUIGesture (oldGesture, newGesture, func) { trainer.off(oldGesture, func); trainer.on(newGesture, func); optionsUpdated(); return newGesture; }
 
-	openConfiguration.change(function()  { openConfigGesture  = registerUIGesture(openConfigGesture, openConfiguration.val(), openOptions); });
-	closeConfiguration.change(function() { closeConfigGesture = registerUIGesture(closeConfigGesture, closeConfiguration.val(), closeOptions); });
+//	openConfiguration.change(function()  { openConfigGesture  = registerUIGesture(openConfigGesture, openConfiguration.val(), openOptions); });
+	//closeConfiguration.change(function() { closeConfigGesture = registerUIGesture(closeConfigGesture, closeConfiguration.val(), closeOptions); });
 
 	/*
 	 * ------------------------------------------------------------------------------------------
@@ -324,7 +324,7 @@ $(document).ready(function ($) {
 	 * in the gesture list is modified to be full width and display its arrow pointing at the overlay.  The content of
 	 * the overlay is set as appropriate for the selected gesture.
 	 */
-	function openExportOverlay(listItem, gestureName) {
+	/*function openExportOverlay(listItem, gestureName) {
 
 		if (overlayOpen || training) { return; } // If a gesture is currently in training, the overlay can't be opened
 
@@ -360,7 +360,7 @@ $(document).ready(function ($) {
 	/**
 	 * Closes the overlay. The selected gesture to returned to as it was before the overlay opened.
 	 */
-	function closeExportOverlay() {
+	/*function closeExportOverlay() {
 
 		if (!overlayOpen) { return; }
 
@@ -375,24 +375,24 @@ $(document).ready(function ($) {
 		body.removeClass('overlay-open'); // This is what makes the overlay and shade invisible again.
 
 		overlayOpen = false;
-	};
+	};*/
 
     /*
      * When the retrain button is clicked the overlay closes and the leaptrainer retrain() function is called for the selected gesture
      */
-    retrainButton.click(function() { closeExportOverlay(); trainer.retrain(exportingName.html()); });
+    /*retrainButton.click(function() { closeExportOverlay(); trainer.retrain(exportingName.html()); });
 
     closeOverlayButton.click(closeExportOverlay); // Clicking on the close button closes the overlay
 
     overlayShade.on('click', function (e) { if (body.hasClass('overlay-open')) { closeExportOverlay(); } }); // Clicking anywhere on the overlay shade closes the overlay
 
     $(document).on('keydown', function (e) { if (e.keyCode === 27 ) { closeExportOverlay(); }}); // Pressing the ESC key closes the overlay
-
+		*/
     /*
      * Clicking on the export textarea causes all the text contained in it to be selected.  This way one needs only click on the textarea and
      * then CTRL+C (or whatever copy is on your system) to extract the JSON.
      */
-    exportText.click(function() { this.focus(); this.select(); });
+    //exportText.click(function() { this.focus(); this.select(); });
 
 
 	/*
@@ -414,8 +414,8 @@ $(document).ready(function ($) {
 		windowHeight 		= win.innerHeight();
 		windowWidth 		= win.innerWidth();
 
-		overlayShade.css	({height: windowHeight});
-		optionsArea.css		({height: windowHeight});
+		//overlayShade.css	({height: windowHeight});
+		//optionsArea.css		({height: windowHeight});
 		main.css			({height: windowHeight});
 
 		/*
@@ -423,8 +423,7 @@ $(document).ready(function ($) {
 		 */
 		var renderHeight 	= windowHeight;
 
-		var handW= windowWidth/2;
-		var handH = renderHeight/2
+		var handW= (2 * windowWidth) / 3;
 
 		renderArea.css({width: handW, height: windowHeight});
 
@@ -440,15 +439,15 @@ $(document).ready(function ($) {
 		/*
 		 * The font of the output text is also scaled with the window width
 		 */
-		outputText.css({left: outputTextLeft, width: windowWidth - outputTextLeft - 22, fontSize: Math.max(22, windowWidth/55)});
+		outputText.css({left: outputTextLeft, width: windowWidth - outputTextLeft - 22, fontSize: Math.max(40, windowWidth/55)});
 
 		/*
 		 * The export/retrain overlay is always nearly as tall as the window, and wide enough to fill most of the window without covering
 		 * the gesture list.
 		 */
-		overlayArea.css({width: windowWidth - 480, height: windowHeight * 0.88});
+		//overlayArea.css({width: windowWidth - 480, height: windowHeight * 0.88});
 
-		exportText.css({height: overlayArea.height() - (overlayArea.children()[0].clientHeight + 150)}); // The export textarea stretches vertically
+		//exportText.css({height: overlayArea.height() - (overlayArea.children()[0].clientHeight + 150)}); // The export textarea stretches vertically
 	}
 
 	/*
@@ -505,6 +504,11 @@ $(document).ready(function ($) {
 		 *
 		 * The gesture name is upper-cased for uniformity (TODO: This shouldn't really be a requirement).
 		 */
+		var name = name.split('v=')[1];
+		var ampersandPosition = name.indexOf('&');
+		if(ampersandPosition != -1) {
+  		name = name.substring(0, ampersandPosition);
+		}
 		trainer.create(name);
 
 		return false;
@@ -593,7 +597,7 @@ $(document).ready(function ($) {
 		main.css({background: color});
 
 		gestureCreationArea.css({display: 'none'});
-		optionsButton	   .css({display: 'none'});
+		//optionsButton	   .css({display: 'none'});
 		versionTag		   .css({display: 'none'});
 
 		outputText.css({background: 'transparent'});
@@ -609,7 +613,7 @@ $(document).ready(function ($) {
 		main.css({background: ''});
 
 		gestureCreationArea.css({display: ''});
-		optionsButton	   .css({display: ''});
+		//optionsButton	   .css({display: ''});
 		versionTag		   .css({display: ''});
 
 		outputText.css({background: ''});
@@ -635,7 +639,7 @@ $(document).ready(function ($) {
 						'</span></div>' +
 						'<span class="label">&nbsp;</span></li>');
 
-		gesture.click(function() { openExportOverlay(gesture, gestureName); }); //Clicking on the gesture will open the export/retrain overlay
+		//gesture.click(function() { openExportOverlay(gesture, gestureName); }); //Clicking on the gesture will open the export/retrain overlay
 
 		var items = existingGestureList.find('li');
 
@@ -671,9 +675,9 @@ $(document).ready(function ($) {
 		 * Finally we add the new gesture to the interface configuration option lists, so that the new gesture
 		 * can be selected to associate it with interface functions.
 		 */
-	    openConfiguration.append('<option value="' + gestureName + '">' + gestureName + '</option>');
+	   // openConfiguration.append('<option value="' + gestureName + '">' + gestureName + '</option>');
 
-	    closeConfiguration.append('<option value="' + gestureName + '">' + gestureName + '</option>');
+	    //closeConfiguration.append('<option value="' + gestureName + '">' + gestureName + '</option>');
 	});
 
 	/*
@@ -698,11 +702,11 @@ $(document).ready(function ($) {
 
 		setOutputText('Perform the ' + gestureName + ' gesture or pose ' + (trainingGestureCount > 1 ? trainingGestureCount + ' times' : ''));
 
-		gestureEntries[gestureName].css({background: 'transparent'});
+		//gestureEntries[gestureName].css({background: 'transparent'});
 
 		setGestureLabel(gestureName);
 
-		setGestureScale(gestureName, 1, yellow, yellow);
+		//setGestureScale(gestureName, 1, yellow, yellow);
 	});
 
 	/*
@@ -717,7 +721,7 @@ $(document).ready(function ($) {
 
 		var remaining = (trainingGestures - trainingSet.length);
 
-		setGestureScale(gestureName, 100 - ((100/trainingGestures) * remaining), yellow, yellow);
+		//setGestureScale(gestureName, 100 - ((100/trainingGestures) * remaining), yellow, yellow);
 
 		setOutputText('Perform the ' + gestureName + ' gesture ' + (remaining == 1 ? ' once more' : remaining + ' more times'));
 	});
@@ -736,7 +740,7 @@ $(document).ready(function ($) {
 
 		setGestureLabel(gestureName, 'Learned');
 
-		setGestureScale(gestureName, 100, green, green);
+		//setGestureScale(gestureName, 100, green, green);
 	});
 
 
@@ -748,14 +752,13 @@ $(document).ready(function ($) {
 
 		unselectAllGestures(false);
 
-		setAllGestureScales(allHits, gestureName);
-
+		//setAllGestureScales(allHits, gestureName);
+		setOutputText('<span>Now playing: ' + gestureName + '</span>');
 		var params = { allowScriptAccess: "always"};
 		var atts = { id: "myytplayer" };
 		swfobject.embedSWF("http://www.youtube.com/v/"+gestureName+"?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1",
 												"ytapiplayer", "425", "356", "8", null, null, params, atts);
-		//var getName = $("#myytplayer").loadVideoById(......);
-		setOutputText('<span style="font-weight: bold">Now playing: ' + gestureName + '</span>');
+		$("#myytplayer").YouTubePopup({youtubeId: gestureName}).click();
 	});
 
 	/*

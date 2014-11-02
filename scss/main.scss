@@ -7,11 +7,17 @@ body {
 }
 
 h1 {
-  padding:5%;
+  padding:3%;
   font-size:40px;
   text-transform:uppercase;
   color:#fff;
   transition: all ease 0.4s;
+  opacity:0;
+}
+
+p {
+  color:#fff;
+  font-size:20px;
   opacity:0;
 }
 

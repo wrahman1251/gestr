@@ -7,21 +7,23 @@
 
 		<!-- CSS-->
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-		<link rel="stylesheet" href="css/trainer.css" />
+		<link rel="stylesheet" href="css/trainer.css"/>
+		<link rel="stylesheet" href="css/animate.css">
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" rel="stylesheet" />
 	</head>
 
 	<body>
 		<!--CREATE GESTURES-->
 		<div id="main">
+			<div id="output-text"></div>
 			<div id="gesture-creation-area">
 				<form id="new-gesture-form">
-					<input type="text" id="new-gesture-name" value="Insert name" maxlength="15" autocomplete="off"/>
+					<input type="text" id="new-gesture-name" value="Youtube link!" autocomplete="off"/>
 				</form>
 			</div>
 
 			<!-- DISPLAY CURRENT GESTURES-->
 			<ul id="existing-gestures"></ul>
-			<div id="output-text"></div>
 			<div id="ytapiplayer">
 			You need Flash player 8+ and JavaScript enabled to view this video.
 			</div>
@@ -29,13 +31,13 @@
 			<div id="render-area"></div>
 
 			<!-- GO BACK-->
-			<input id="finished" type="button" value="Finished" class="button" onload="location.href='index.html'"/>
+			<input id="finished" type="button" value="Finished" class="button" onclick="location.href='index.html'"/>
 
 			<div id="version-tag">Created with LeapTrainer UI v0.03</div>
 		</div>
 		<div id="overlay-shade"></div>
 
-		<div id="overlay">
+		<!--<div id="overlay">
 			<div>
 				<p>To use the <b id="exporting-gesture-name"></b> gesture, copy the text in the text area below and import it into a <b>LeapTrainer.Controller</b> using the <b>fromJSON</b> function:</p>
 
@@ -51,44 +53,40 @@
 				<input type="button" id="retrain-gesture" value="Retrain" class="button"/>
 				<input type="button" id="close-overlay" value="Close" class="button"/>
 			</div>
-		</div>
+		</div>-->
 
 		<div id="webgl-warning"><b>WARNING:</b> Your browser does not support WebGL. Rendering quality is limited and gesture trails are disabled.</div>
 	</body>
 
 	<!--JS IMPORTS-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+	<!--<script src="jquery-1.11.1.min.js"></script>-->
 	<script src="trainerjs/jquery.touchwipe.min.js"></script>
 	<script src="http://js.leapmotion.com/leap-0.6.3.js"></script>
+	<script src="jquery.youtubepopup.min.js"></script>
 
 	<!-- TRAINER LIBRARIES-->
 	<script src="trainerjs/three.min.js"></script>
 	<script src="trainerjs/detector.js"></script>
 	<script src="trainerjs/tween.js"></script>
 	<script src="trainerjs/orbit-controls.js"></script>
-	<!--<script src="trainerjs/high-resolution-recording.js"></script>-->
 	<script src="trainerjs/lib/brain.js"></script>
-	<!--<script src="trainerjs/neural-networks.js"></script>
-	<script src="trainerjs/cross-correlation.js"></script>-->
 	<script src="trainerjs/leaptrainer.js"></script>
 	<script src="trainerjs/leaptrainer-ui.js"></script>
 	<script type="text/javascript" src="ytube/swfobject.js"></script>
-	<script>
-	$(document).ready(function(){
-    $('#finished').click(function(){
-       var g = getGestures();
-			 console.log(g);
-			var name = String(Object.keys(g)[0]);
-			/*var iframe = document.createElement('iframe');
-			iframe.setAttribute("src","https://embed.spotify.com/?uri=spotify:track:4th1RQAelzqgY7wL53UGQt");
-			iframe.width="300";
-			iframe.height="380";
-			iframe.allowtransparency="true";
-			document.getElementById("output-text").appendChild(iframe);
-			//$('#render-area').append("<iframe src="https://embed.spotify.com/?uri=spotify:track:4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>");
-			*/
-
-    });
-  });
+	<script type="text/javascript">
+		$(window).ready(function() {
+			$('#output-text').addClass('animated fadeInDown').css("opacity", "1");
+			setTimeout(function() {
+				$('#gesture-creation-area').addClass('animated fadeInDown').css("opacity", "1");
+			}, 700);
+			setTimeout(function() {
+				$('#finished').addClass('animated fadeInDown').css("opacity", "1");
+			}, 1200);
+			setTimeout(function() {
+				$('#render-area').addClass('animated fadeInUp').css("opacity", "1");
+			}, 2000);
+		});
 	</script>
 </html>

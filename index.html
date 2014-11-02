@@ -17,7 +17,10 @@
 
   <div id="main">
     <h1 id="title">Gestr</h1>
-    <button class="btn" id="gest" type="button" onclick="location.href='trainerui.html'">Choose Gestures</button>
+    <p id="one">Have those Youtube videos always on replay?</p>
+    <p id="two">Wanted a way to automate that?</p>
+    <p id="three">... With just a hand motion?</p>
+    <button class="btn" id="gest" type="button" onclick="location.href='trainerui.html'">Choose Gestrs</button>
   </div>
 
   <!-- JS IMPORTS-->
@@ -28,8 +31,17 @@
     $(window).ready(function() {
       $('#title').addClass('animated fadeInDown').css("opacity", "1");
       setTimeout(function() {
+        $('#one').addClass('animated fadeInDown').css("opacity", "1");
+      }, 700);
+      setTimeout(function() {
+        $('#two').addClass('animated fadeInDown').css("opacity", "1");
+      }, 2000);
+      setTimeout(function() {
+        $('#three').addClass('animated fadeInDown').css("opacity", "1");
+      }, 3000);
+      setTimeout(function() {
         $('#gest').addClass('animated fadeInDown').css("opacity", "1");
-      }, 800);
+      }, 4000);
     });
   </script>
 </body>

@@ -6,7 +6,7 @@ body {
 
 /* line 9, ../scss/main.scss */
 h1 {
-  padding: 5%;
+  padding: 3%;
   font-size: 40px;
   text-transform: uppercase;
   color: #fff;
@@ -15,11 +15,18 @@ h1 {
 }
 
 /* line 18, ../scss/main.scss */
+p {
+  color: #fff;
+  font-size: 20px;
+  opacity: 0;
+}
+
+/* line 24, ../scss/main.scss */
 #main {
   text-align: center;
 }
 
-/* line 22, ../scss/main.scss */
+/* line 28, ../scss/main.scss */
 .btn {
   max-height: 100px;
   opacity: 0;
@@ -35,7 +42,7 @@ h1 {
   cursor: pointer;
 }
 
-/* line 37, ../scss/main.scss */
+/* line 43, ../scss/main.scss */
 #gest {
   margin-left: 2%;
   margin-right: 2%;
@@ -46,7 +53,7 @@ h1 {
   transition: all ease 0.4s;
 }
 
-/* line 47, ../scss/main.scss */
+/* line 53, ../scss/main.scss */
 #gest:hover {
   background: #fff;
   border-color: #B6DFFA;
