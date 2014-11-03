@@ -73,9 +73,10 @@ body {
   height: 50px;
   z-index: 9999;
   text-align: center;
+  margin-bottom: 10px;
 }
 
-/* line 79, ../scss/trainer.scss */
+/* line 80, ../scss/trainer.scss */
 #new-gesture-name {
   text-align: center;
   padding: 0 5%;
@@ -89,7 +90,7 @@ body {
   border-radius: 10px;
 }
 
-/* line 93, ../scss/trainer.scss */
+/* line 94, ../scss/trainer.scss */
 #version-tag {
   position: fixed;
   font-size: 13px;
@@ -101,7 +102,7 @@ body {
   margin-right: 3%;
 }
 
-/* line 105, ../scss/trainer.scss */
+/* line 106, ../scss/trainer.scss */
 #render-area {
   background: transparent;
   float: left;
@@ -109,13 +110,14 @@ body {
   opacity: 0;
 }
 
-/* line 112, ../scss/trainer.scss */
-#ytapiplayer {
-  float: right;
-  width: 30%;
+/* line 113, ../scss/trainer.scss */
+#player {
+  margin-top: 2%;
+  margin-left: 25%;
+  margin-bottom: 2%;
 }
 
-/* line 117, ../scss/trainer.scss */
+/* line 119, ../scss/trainer.scss */
 #existing-gestures {
   display: block;
   list-style-type: none;
@@ -129,7 +131,7 @@ body {
   color: #FFF;
 }
 
-/* line 130, ../scss/trainer.scss */
+/* line 132, ../scss/trainer.scss */
 #existing-gestures li {
   position: relative;
   overflow: visible;
@@ -138,9 +140,10 @@ body {
   cursor: pointer;
   color: #9AD7EE;
   margin-bottom: 0px;
+  text-align: center;
 }
 
-/* line 141, ../scss/trainer.scss */
+/* line 144, ../scss/trainer.scss */
 #existing-gestures li .gesture-name {
   padding-left: 37px;
   float: left;
@@ -148,14 +151,14 @@ body {
   position: absolute;
 }
 
-/* line 148, ../scss/trainer.scss */
+/* line 151, ../scss/trainer.scss */
 #existing-gestures li .label {
   font-style: italic;
   right: 0px;
   position: absolute;
 }
 
-/* line 154, ../scss/trainer.scss */
+/* line 157, ../scss/trainer.scss */
 #existing-gestures li .progress {
   float: left;
   overflow: visible;
@@ -163,7 +166,7 @@ body {
   height: 50px;
 }
 
-/* line 161, ../scss/trainer.scss */
+/* line 164, ../scss/trainer.scss */
 #webgl-warning {
   display: none;
   position: absolute;

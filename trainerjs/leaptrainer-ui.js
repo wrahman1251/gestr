@@ -70,7 +70,7 @@ $(document).ready(function ($) {
 	/*
 	 * Now we create the trainer controller, passing the leap controller as a parameter
 	 */
-	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 3});
+	var trainer = new LeapTrainer.Controller({controller: controller, trainingGestures: 7});
 
 	/*
 	 * We get the DOM crawling done now during setup, so it's not consuming cycles at runtime.
@@ -343,8 +343,8 @@ $(document).ready(function ($) {
 		 */
 		var renderHeight 	= windowHeight;
 
-		var handW= (2 * windowWidth) / 3;
-		var handH= (2 * windowHeight) / 3;
+		var handW = (2 * windowWidth) / 3;
+		var handH = (2 *windowHeight) / 3;
 
 		renderArea.css({width: windowWidth, height: handH});
 
@@ -621,7 +621,7 @@ $(document).ready(function ($) {
 
 		var trainingGestureCount = trainer.trainingGestures;
 
-		setOutputText('Perform the ' + gestureName + ' gesture or pose ' + (trainingGestureCount > 1 ? trainingGestureCount + ' times' : ''));
+		setOutputText('Perform the gesture or pose ' + (trainingGestureCount > 1 ? trainingGestureCount + ' times' : ''));
 
 		//gestureEntries[gestureName].css({background: 'transparent'});
 
@@ -644,7 +644,7 @@ $(document).ready(function ($) {
 
 		//setGestureScale(gestureName, 100 - ((100/trainingGestures) * remaining), yellow, yellow);
 
-		setOutputText('Perform the ' + gestureName + ' gesture ' + (remaining == 1 ? ' once more' : remaining + ' more times'));
+		setOutputText('Perform the gesture ' + (remaining == 1 ? ' once more' : remaining + ' more times'));
 	});
 
 	/*
@@ -657,7 +657,7 @@ $(document).ready(function ($) {
 
 		renderGesture();
 
-		setOutputText(gestureName + (isPose ? ' pose' : ' gesture') + ' learned!');
+		setOutputText('Gesture learned!');
 
 		setGestureLabel(gestureName, 'Learned');
 
@@ -674,7 +674,8 @@ $(document).ready(function ($) {
 		unselectAllGestures(false);
 
 		//setAllGestureScales(allHits, gestureName);
-		setOutputText('<span>Now playing: ' + gestureName + '</span>');
+		setOutputText('<span>Now playing</span>');
+		newGestureName = gestureName;
 		var lst = gestureName.split("&list=");
 		lst_id = lst[1];
 		newGestureName = lst[0];
@@ -700,33 +701,6 @@ $(document).ready(function ($) {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	});
 
-
-/*
-	function onYouTubePlayerAPIReady() {
-  		// create the global player from the specific iframe (#video)
-  		var player = $("#myytplayer");
-  		console.log("youtube api called successfully");
-  		player = new YT.Player('video', {
-    		events: {
-      			// call this function when player is ready to use
-      			'onReady': onPlayerReady
-    		}
-  		});
-  }
-
-  function onPlayerReady(event){
-		controller.on('swipe', function(swipe){
-			console.log("thisworks");
-			$("#myytplayer").playVideo();
-		});
-
-  		controller.on('swipe', function(){
-  			$("#myytplayer").playVideo();
-  			console.log("thisworks")
-  		});
-	}
-	*/
-
 	/*
 	 * When an unknown gesture is recorded we unselect all gestures in the list, update all gesture progress bars with the list of hit
 	 * values that did come back (all of which will be below trainer.hitThreshold) and empty the output text.  We also clear any currently
@@ -737,8 +711,6 @@ $(document).ready(function ($) {
 		unselectAllGestures(false);
 
 		setOutputText();
-
-		setAllGestureScales(allHits);
 
 		clearGesture();
 	});
@@ -1123,11 +1095,13 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
 		height: '390',
 		width: '640',
+		shufflePlaylist: false,
 		//videoId: newGestureName,
 		playerVars:
 		{
 			listType: 'playlist',
-			list: lst_id
+			list: lst_id,
+			loop: 1
 		},
 		events: {
 			'onReady': onPlayerReady
@@ -1137,16 +1111,8 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-	alert("hi");
-
-	/*controller.on('swipe', function(gesture){
-		console.log("swiped");
-		//$("#player").playVideo();
-		event.target.playVideo();
-	});*/
-
 	var controllerOptions = {enableGestures: true};
-
+	$("#render-area").css('display', 'none');
 	Leap.loop(controllerOptions, function(frame) {
 		console.log("r");
 	  if (frame.gestures.length > 0) {
@@ -1166,7 +1132,7 @@ function onPlayerReady(event) {
 	      			if(gesture.direction[0] > 0){
                   swipeDirection = "right";
                   event.target.nextVideo();
-              		} 
+              		}
               		else {
                   swipeDirection = "left";
                   event.target.previousVideo();
